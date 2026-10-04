@@ -101,6 +101,15 @@ h2 .pin { color: var(--accent); }
 .archive { margin: 18px 0 0; padding-left: 18px; color: var(--muted); }
 .archive li { margin: 4px 0; }
 
+/* Privacy policies */
+.policy-head { display: flex; gap: 18px; align-items: center; padding: 48px 0 28px; }
+.policy-head img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
+.policy-head h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.2rem); }
+.policy-head p { margin: 6px 0 0; font-size: 0.92rem; }
+.policy h3 { margin: 22px 0 6px; font-size: 1.05rem; }
+.policy p { margin: 0 0 10px; color: #c9d1d9; }
+.policy code { font-family: var(--mono); font-size: 0.88em; background: var(--panel); padding: 1px 6px; border-radius: 4px; }
+
 footer { padding: 36px 0 56px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
 
 @media (max-width: 560px) {
