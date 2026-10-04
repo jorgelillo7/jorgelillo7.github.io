@@ -1,8 +1,16 @@
 # jorgelillo7.github.io
 
-Developer site for Jorge Lillo's Android apps, served by GitHub Pages.
+Personal site of Jorge Lillo, served by GitHub Pages. Plain static HTML/CSS, no build step.
 
-- `/` — list of apps
-- `/privacy/<app>/` — privacy policy for each app (linked from Google Play and from the apps)
+| Path | Content |
+|---|---|
+| `/` · `/en/` | Home in Spanish and English: pinned Android apps, about, experience, projects, education |
+| `/privacy/<app>/` | Privacy policy for each Android app |
+| `assets/` | Shared stylesheet, favicons and app icons |
 
-Keep these URLs stable: they are referenced by published Play Store listings.
+Keep `/privacy/<app>/` URLs stable: published Google Play listings and the apps link to them.
+
+When adding an app: add its card to the pinned "Apps" block in both `index.html` and
+`en/index.html`, its icon to `assets/apps/`, and its policy under `privacy/<app>/`.
+
+Preview locally: `python3 -m http.server 8765` and open http://127.0.0.1:8765/.
