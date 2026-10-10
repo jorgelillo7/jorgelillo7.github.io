@@ -74,7 +74,6 @@ h2 .pin { color: var(--accent); }
 .apps { display: grid; gap: 14px; }
 .app { display: flex; gap: 18px; align-items: flex-start; border-color: rgba(61, 220, 132, 0.45); }
 .app img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
-.app .tile { width: 72px; height: 72px; border-radius: 16px; flex: none; display: grid; place-items: center; font-size: 2.3rem; }
 .app h3 { margin: 0 0 4px; font-size: 1.15rem; }
 .app p { margin: 0 0 10px; color: var(--muted); }
 .app .actions { display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.92rem; }
