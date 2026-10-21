@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Solo quedará uno? · Last one standing?</title>
+<meta name="description" content="Un torneo compartido desde la app ¿Solo quedará uno?">
+<meta property="og:title" content="¿Solo quedará uno? 👑">
+<meta property="og:description" content="Te han pasado un torneo. Mira el cuadro y quién va ganando.">
+<meta property="og:image" content="https://jorgelillo7.github.io/assets/apps/tournaments.png">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/apps/tournaments.png">
+<style>
+  :root { --ink: #12202d; --top: #1e3a52; --raised: #1b2e3e; --high: #25405a; --cream: #f4f1ea; --muted: #a9b6c2;
+          --gold: #ffc83d; --line: rgba(244, 241, 234, .14); }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; padding: 24px 16px; background: linear-gradient(var(--top), var(--ink)) fixed;
+         color: var(--cream); font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+  main { width: min(100%, 520px); margin: 0 auto; }
+  header { display: flex; gap: 14px; align-items: center; margin-bottom: 18px; }
+  header img { width: 56px; height: 56px; border-radius: 14px; }
+  h1 { font-size: 1.45rem; margin: 0; line-height: 1.2; }
+  .meta { color: var(--muted); font-size: .9rem; }
+  .champion { background: var(--gold); color: var(--ink); border-radius: 16px; padding: 12px 16px; margin: 0 0 18px;
+              display: flex; gap: 12px; align-items: center; font-weight: 800; }
+  .champion small { display: block; font-size: .75rem; letter-spacing: .04em; text-transform: uppercase; }
+  .champion b { font-size: 1.3rem; }
+  h2 { color: var(--gold); font-size: .95rem; margin: 18px 0 8px; }
+  .match { background: var(--raised); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; }
+  .row { display: flex; justify-content: space-between; gap: 8px; font-weight: 600; }
+  .row.lost, .row.tbd { color: var(--muted); }
+  .row.won { color: var(--gold); font-weight: 900; }
+  .note { color: var(--muted); font-style: italic; font-size: .85rem; }
+  table { width: 100%; border-collapse: collapse; background: var(--raised); border-radius: 14px; overflow: hidden; }
+  td, th { padding: 8px 10px; text-align: left; font-size: .92rem; } th { color: var(--muted); font-weight: 600; }
+  tr + tr td { border-top: 1px solid var(--line); } td.n { text-align: right; font-weight: 800; }
+  .cta { margin-top: 24px; background: var(--raised); border-radius: 20px; padding: 18px; text-align: center; }
+  .btn { display: block; padding: 14px; border-radius: 999px; background: var(--gold); color: var(--ink); font-weight: 900;
+         text-decoration: none; margin-top: 10px; }
+  .btn.alt { background: transparent; color: var(--cream); border: 1px solid var(--line); }
+  .error { text-align: center; padding: 48px 8px; }
+  footer { text-align: center; margin-top: 18px; font-size: .85rem; } footer a { color: var(--muted); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="/assets/apps/tournaments.png" alt="">
+    <div><h1 id="name">¿Solo quedará uno?</h1><div class="meta" id="meta"></div></div>
+  </header>
+  <div id="champion" class="champion" hidden>🏆<div><small data-es="Campeón" data-en="Champion">Campeón</small><b id="champ"></b></div></div>
+  <div id="content"></div>
+  <div id="error" class="error" hidden>
+    <p data-es="Este enlace no contiene un torneo (o ha llegado cortado)." data-en="This link has no tournament in it (or it got cut off).">Este enlace no contiene un torneo.</p>
+  </div>
+  <div class="cta">
+    <div data-es="Llévalo a tu móvil y apunta los resultados con la app gratuita ¿Solo quedará uno?"
+         data-en="Take it to your phone and keep the results with the free app Last one standing?">Llévalo a tu móvil con la app.</div>
+    <a class="btn" id="open" href="#" hidden data-es="Abrir en la app" data-en="Open in the app">Abrir en la app</a>
+    <a class="btn alt" id="play" href="https://play.google.com/store/apps/details?id=com.jorgelillo.tournaments"
+       data-es="Instalar desde Google Play" data-en="Get it on Google Play">Instalar desde Google Play</a>
+  </div>
+  <footer><a href="/privacy/tournaments/" data-es="Política de privacidad" data-en="Privacy policy">Política de privacidad</a></footer>
+</main>
+<script>
+// The whole tournament travels in the link (after # or in ?d=): "1" + base64url(raw deflate(JSON)),
+// the format of the app's domain/Share.kt. Decoded here, in the browser: nothing is sent anywhere.
+const es = (navigator.language || "es").toLowerCase().startsWith("es");
+const lang = es ? "es" : "en";
+document.documentElement.lang = lang;
+document.querySelectorAll("[data-" + lang + "]").forEach(el => { el.textContent = el.dataset[lang]; });
+const T = es
+  ? { final: "Final", semi: "Semifinales", quarter: "Cuartos", r16: "Octavos", round: n => "Ronda " + n, bye: n => n + " pasa directo",
+      tbd: "Por decidir", draw: "Empate", knockout: "Eliminatoria", swiss: "Suizo", bo: n => n === 1 ? "A una" : "Al mejor de " + n,
+      player: "Jugador", pts: "Pts", top: "Eliminatoria" }
+  : { final: "Final", semi: "Semifinals", quarter: "Quarterfinals", r16: "Round of 16", round: n => "Round " + n, bye: n => n + " gets a bye",
+      tbd: "To be decided", draw: "Draw", knockout: "Knockout", swiss: "Swiss", bo: n => n === 1 ? "One game" : "Best of " + n,
+      player: "Player", pts: "Pts", top: "Top cut" };
+
+function codeFromUrl() {
+  const fromHash = location.hash.slice(1);
+  return fromHash || new URLSearchParams(location.search).get("d") || "";
+}
+
+async function decode(code) {
+  if (!code.startsWith("1")) throw new Error("version");
+  const b64 = code.slice(1).replace(/-/g, "+").replace(/_/g, "/");
+  const bin = atob(b64 + "===".slice((b64.length + 3) % 4));
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+  return JSON.parse(await new Response(stream).text());
+}
+
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+function render(t) {
+  const bestOf = t.bo || 3, needed = Math.floor(bestOf / 2) + 1;
+  const name = id => (t.p.find(p => p.i === id) || {}).n || "";
+  const matches = (t.m || []).map(m => ({ stage: m.t, round: m.r, slot: m.s, a: m.a ?? null, b: m.b ?? null,
+    x: m.x || 0, y: m.y || 0, draw: !!m.d, comment: m.c || "" }));
+  const isBye = m => (m.a === null) !== (m.b === null) && (m.stage === "s" || m.round === 1);
+  const winner = m => isBye(m) ? (m.a ?? m.b) : (m.a === null || m.b === null) ? null
+    : m.x >= needed ? m.a : m.y >= needed ? m.b : null;
+  const lastElim = Math.max(0, ...matches.filter(m => m.stage === "e").map(m => m.round));
+
+  document.title = t.nm + " · ¿Solo quedará uno?";
+  document.getElementById("name").textContent = t.nm;
+  const date = new Date((t.dt || 0) * 86400000).toLocaleDateString(lang, { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+  document.getElementById("meta").textContent = [t.g, date, T.bo(bestOf), t.f === "s" ? T.swiss : T.knockout].filter(Boolean).join(" · ");
+
+  if (lastElim) {
+    const final = matches.find(m => m.stage === "e" && m.round === lastElim);
+    const champ = final && winner(final);
+    if (champ !== null && champ !== undefined) {
+      document.getElementById("champ").textContent = name(champ);
+      document.getElementById("champion").hidden = false;
+    }
+  }
+  const content = document.getElementById("content");
+  if (t.f === "s") {
+    // Swiss table: points 3/1/0, a bye counts as a win (tie-breakers are in the app).
+    const pts = new Map(t.p.map(p => [p.i, 0]));
+    matches.filter(m => m.stage === "s").forEach(m => {
+      if (m.draw) { pts.set(m.a, pts.get(m.a) + 1); pts.set(m.b, pts.get(m.b) + 1); return; }
+      const w = winner(m); if (w !== null) pts.set(w, pts.get(w) + 3);
+    });
+    const table = el("table");
+    const head = el("tr"); ["#", T.player, T.pts].forEach(h => head.appendChild(el("th", null, h))); table.appendChild(head);
+    [...pts].sort((p, q) => q[1] - p[1]).forEach(([id, p], i) => {
+      const tr = el("tr"); tr.appendChild(el("td", null, i + 1)); tr.appendChild(el("td", null, name(id))); tr.appendChild(el("td", "n", p));
+      table.appendChild(tr);
+    });
+    content.appendChild(table);
+  }
+  const roundName = m => {
+    if (m.stage === "s") return T.round(m.round);
+    const prefix = t.f === "s" ? T.top + " · " : "";
+    return prefix + ([T.final, T.semi, T.quarter, T.r16][lastElim - m.round] || T.round(m.round));
+  };
+  const groups = new Map();
+  matches.filter(m => m.a !== null || m.b !== null)
+    .sort((p, q) => (p.stage === q.stage ? 0 : p.stage === "s" ? -1 : 1) || p.round - q.round || p.slot - q.slot)
+    .forEach(m => { const k = m.stage + m.round; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(m); });
+  for (const list of groups.values()) {
+    content.appendChild(el("h2", null, roundName(list[0])));
+    for (const m of list) {
+      const card = el("div", "match");
+      if (isBye(m)) { card.appendChild(el("div", "row tbd", T.bye(name(m.a ?? m.b)))); content.appendChild(card); continue; }
+      const w = winner(m), done = m.draw || w !== null;
+      for (const [id, score] of [[m.a, m.x], [m.b, m.y]]) {
+        const row = el("div", "row " + (id === null ? "tbd" : !done ? "" : w === id ? "won" : "lost"));
+        row.appendChild(el("span", null, id === null ? T.tbd : name(id)));
+        row.appendChild(el("span", null, done ? score : ""));
+        card.appendChild(row);
+      }
+      if (m.draw) card.appendChild(el("div", "note", T.draw));
+      if (m.comment) card.appendChild(el("div", "note", "“" + m.comment + "”"));
+      content.appendChild(card);
+    }
+  }
+}
+
+(async () => {
+  const code = codeFromUrl();
+  try { render(await decode(code)); } catch (e) { document.getElementById("error").hidden = false; }
+  if (/android/i.test(navigator.userAgent) && code) {
+    // Opens the app with this tournament if installed (the app reads ?d=), Google Play otherwise.
+    const play = document.getElementById("play").href;
+    const open = document.getElementById("open");
+    open.href = "intent://jorgelillo7.github.io/t/?d=" + encodeURIComponent(code) +
+      "#Intent;scheme=https;package=com.jorgelillo.tournaments;S.browser_fallback_url=" + encodeURIComponent(play) + ";end";
+    open.hidden = false;
+  }
+})();
+</script>
+</body>
+</html>

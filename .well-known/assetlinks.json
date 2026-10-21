@@ -1,0 +1,30 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.jorgelillo.whoslying",
+      "sha256_cert_fingerprints": [
+        "71:51:26:6B:B6:C3:24:11:52:0B:C2:2B:49:C1:C8:DC:54:EE:F3:08:00:1A:BF:EA:7B:EE:C9:34:5D:64:ED:78",
+        "85:7F:D2:53:4D:0A:5A:BE:FF:67:B8:8E:06:4B:B0:FB:9C:5B:BE:CF:DE:85:4B:08:6C:14:37:B7:34:B8:1A:3D",
+        "55:D5:57:68:F5:C6:14:F4:54:5C:62:FE:53:45:F7:A7:2D:CE:44:0D:9F:83:EF:A1:FB:D6:7A:5B:0D:D9:43:E2"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.jorgelillo.tournaments",
+      "sha256_cert_fingerprints": [
+        "55:3E:89:06:A5:92:3D:3F:D5:B0:2E:FF:C0:AA:5C:74:A6:D4:E7:2D:DD:F5:AF:A0:6C:F5:BB:F2:AE:6D:6A:B5",
+        "2F:3A:F8:8E:A6:79:17:86:09:7F:7B:1D:AA:9A:0B:EF:F9:54:02:29:EB:26:B7:BD:DD:E0:8E:89:ED:A6:FF:47",
+        "55:D5:57:68:F5:C6:14:F4:54:5C:62:FE:53:45:F7:A7:2D:CE:44:0D:9F:83:EF:A1:FB:D6:7A:5B:0D:D9:43:E2"
+      ]
+    }
+  }
+]

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Quién miente? · Paquete de palabras</title>
+<meta name="description" content="Un paquete de palabras para el juego del impostor ¿Quién miente?">
+<meta property="og:title" content="¿Quién miente? 🕵️">
+<meta property="og:description" content="Te han pasado un paquete de palabras para jugar al impostor.">
+<meta property="og:image" content="https://jorgelillo7.github.io/assets/apps/whos-lying.png">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/apps/whos-lying.png">
+<style>
+  :root { --top: #3a2490; --night: #100e20; --card: #1f1a3d; --ink: #f0eeff; --muted: #b3acd6; --pink: #ff4d94; --violet: #7c5cff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px 16px;
+         background: linear-gradient(var(--top), var(--night)) fixed; color: var(--ink);
+         font: 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+  main { width: min(100%, 420px); background: var(--card); border-radius: 28px; padding: 32px 24px; text-align: center; }
+  .emoji { font-size: 4rem; line-height: 1; }
+  h1 { font-size: 1.6rem; margin: 12px 0 4px; }
+  .count { color: var(--pink); font-weight: 800; margin-bottom: 16px; }
+  p { color: var(--muted); margin: 0 0 20px; }
+  .btn { display: block; padding: 16px; border-radius: 999px; background: var(--violet); color: #fff; font-weight: 800;
+         text-decoration: none; margin-bottom: 12px; }
+  .btn.alt { background: transparent; color: var(--ink); border: 1px solid rgba(240, 238, 255, .25); }
+  small { color: var(--muted); display: block; margin-top: 12px; } small a { color: var(--muted); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="emoji" id="emoji">🕵️</div>
+  <h1 id="name" data-es="Paquete de palabras" data-en="Word pack">Paquete de palabras</h1>
+  <div class="count" id="count"></div>
+  <p id="lead" data-es="Para jugar al impostor con tus amigos en ¿Quién miente?. Las palabras no se ven aquí: ¡sin spoilers!"
+     data-en="For playing the impostor game with your friends in Who's lying?. The words aren't shown here: no spoilers!">Para jugar al impostor.</p>
+  <p id="error" hidden data-es="Este enlace no contiene un paquete (o ha llegado cortado)." data-en="This link has no pack in it (or it got cut off).">Enlace no válido.</p>
+  <a class="btn" id="open" href="#" hidden data-es="Añadir a la app" data-en="Add it in the app">Añadir a la app</a>
+  <a class="btn alt" id="play" href="https://play.google.com/store/apps/details?id=com.jorgelillo.whoslying"
+     data-es="Instalar desde Google Play" data-en="Get it on Google Play">Instalar desde Google Play</a>
+  <small data-es="Si no la tienes, instálala y vuelve a tocar el enlace." data-en="If you don't have it, install it and tap the link again.">Si no la tienes, instálala y vuelve a tocar el enlace.</small>
+  <small><a href="/privacy/whos-lying/" data-es="Política de privacidad" data-en="Privacy policy">Política de privacidad</a></small>
+</main>
+<script>
+// The pack travels in the link (after # or in ?d=): "1" + base64url(raw deflate(JSON)), the format of
+// lillo-android-apps core/sharelink. Decoded here in the browser; the words are not shown.
+const es = (navigator.language || "es").toLowerCase().startsWith("es");
+const lang = es ? "es" : "en";
+document.documentElement.lang = lang;
+document.querySelectorAll("[data-" + lang + "]").forEach(el => { el.textContent = el.dataset[lang]; });
+const code = location.hash.slice(1) || new URLSearchParams(location.search).get("d") || "";
+
+async function decode(code) {
+  if (!code.startsWith("1")) throw new Error("version");
+  const b64 = code.slice(1).replace(/-/g, "+").replace(/_/g, "/");
+  const bytes = Uint8Array.from(atob(b64 + "===".slice((b64.length + 3) % 4)), c => c.charCodeAt(0));
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+  return JSON.parse(await new Response(stream).text());
+}
+
+(async () => {
+  try {
+    const pack = await decode(code);
+    document.getElementById("emoji").textContent = pack.emoji || "🕵️";
+    document.getElementById("name").textContent = pack.name;
+    const n = (pack.entries || []).length;
+    document.getElementById("count").textContent = es ? n + " palabras" : n + " words";
+    document.title = pack.name + " · ¿Quién miente?";
+    if (/android/i.test(navigator.userAgent)) {
+      // Opens the app with this pack if installed (the app reads ?d=), Google Play otherwise.
+      const open = document.getElementById("open");
+      open.href = "intent://jorgelillo7.github.io/p/?d=" + encodeURIComponent(code) +
+        "#Intent;scheme=https;package=com.jorgelillo.whoslying;S.browser_fallback_url=" +
+        encodeURIComponent(document.getElementById("play").href) + ";end";
+      open.hidden = false;
+    }
+  } catch (e) {
+    document.getElementById("error").hidden = false;
+    document.getElementById("lead").hidden = true;
+  }
+})();
+</script>
+</body>
+</html>
