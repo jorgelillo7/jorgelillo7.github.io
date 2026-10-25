@@ -121,7 +121,8 @@ footer { padding: 36px 0 56px; border-top: 1px solid var(--line); color: var(--m
 }
 .actions .soon { color: var(--muted); }
 
-/* Apps / games tabs on the home page. */
+/* Apps / games tabs on the home page. [hidden] wins over the lists' display: grid. */
+[hidden] { display: none !important; }
 .tabs { display: flex; gap: 8px; margin: 0 0 16px; }
 .tabs [role="tab"] { font: inherit; font-weight: 600; color: var(--muted); background: var(--panel); border: 1px solid var(--line);
   border-radius: 999px; padding: 8px 18px; cursor: pointer; }
