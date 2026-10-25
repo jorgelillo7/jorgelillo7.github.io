@@ -6,11 +6,12 @@ Personal site of Jorge Lillo, served by GitHub Pages. Plain static HTML/CSS, no 
 |---|---|
 | `/` · `/en/` | Home in Spanish and English: pinned Android apps, about, experience, projects, education |
 | `/privacy/<app>/` | Privacy policy for each Android app |
+| `/t/` · `/p/` · `/c/` · `/q/` | Share-link landing pages: tournaments, impostor word packs, slipper challenges, polls (data in the link's `#`, never sent to the server) |
 | `assets/` | Shared stylesheet, favicons and app icons |
 
 Keep `/privacy/<app>/` URLs stable: published Google Play listings and the apps link to them.
 
-When adding an app: add its card to the pinned "Apps" block in both `index.html` and
+When adding an app: add its card to the Apps or Games tab (and its count) in both `index.html` and
 `en/index.html`, its icon to `assets/apps/`, and its policy under `privacy/<app>/`.
 
 Preview locally: `python3 -m http.server 8765` and open http://127.0.0.1:8765/.

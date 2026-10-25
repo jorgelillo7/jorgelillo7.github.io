@@ -46,9 +46,16 @@
     </div>
   </div>
 
-  <section id="apps">
-    <h2><span class="pin">📌</span> Android apps</h2>
-    <div class="apps">
+  <section id="apps" class="catalog">
+    <h2><span class="pin">📌</span> Android apps and games</h2>
+    <!-- Apps or games, one list at a time (without JavaScript both show, one after the other).
+         #apps and #games in the address open each tab. -->
+    <span id="games" class="anchor"></span>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" id="tab-apps" aria-controls="apps-list" aria-selected="true">Apps <span class="n">4</span></button>
+      <button type="button" role="tab" id="tab-games" aria-controls="games-list" aria-selected="false">Games <span class="n">3</span></button>
+    </div>
+    <div class="apps" id="apps-list" role="tabpanel" aria-labelledby="tab-apps">
       <article class="card app">
         <img src="/assets/apps/christmas-countdown.png" alt="Is it Christmas yet? icon">
         <div>
@@ -94,11 +101,7 @@
         </div>
       </article>
     </div>
-  </section>
-
-  <section id="games">
-    <h2><span class="pin">📌</span> Games</h2>
-    <div class="apps">
+    <div class="apps" id="games-list" role="tabpanel" aria-labelledby="tab-games">
       <article class="card app">
         <img src="/assets/apps/whos-lying.png" alt="Who&#39;s lying? icon">
         <div>
@@ -118,6 +121,17 @@
           <div class="actions">
             <span class="soon">Coming soon to Google Play</span>
             <a href="/privacy/league-cards/">Privacy policy</a>
+          </div>
+        </div>
+      </article>
+      <article class="card app">
+        <img src="/assets/apps/slipper.png" alt="Will the slipper get you? icon">
+        <div>
+          <h3>🩴 Will the slipper get you?</h3>
+          <p>Run from grandma, jump her slippers and steal her croquetas. Combos, sandwiches and skates, a run of the day, slippers to unlock and link challenges with the same run. Pixel art, one finger, no ads.</p>
+          <div class="actions">
+            <span class="soon">Coming soon to Google Play</span>
+            <a href="/privacy/slipper/">Privacy policy</a>
           </div>
         </div>
       </article>
@@ -280,5 +294,21 @@
 <footer>
   <div class="wrap">Jorge Lillo · <a href="https://www.linkedin.com/in/jorgelillo">LinkedIn</a> · <a href="https://github.com/jorgelillo7">GitHub</a></div>
 </footer>
+<script>
+// Apps / games tabs: one list at a time; #games (the menu link) opens the games.
+(() => {
+  const tabs = [...document.querySelectorAll('.catalog [role="tab"]')];
+  const show = id => tabs.forEach(t => {
+    const on = t.id === "tab-" + id;
+    t.setAttribute("aria-selected", on);
+    document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+  });
+  tabs.forEach(t => t.addEventListener("click", () => show(t.id.slice(4))));
+  const fromHash = () => { if (location.hash === "#games") { show("games"); document.getElementById("apps").scrollIntoView(); } else if (location.hash === "#apps") show("apps"); };
+  window.addEventListener("hashchange", fromHash);
+  show("apps");
+  fromHash();
+})();
+</script>
 </body>
 </html>
