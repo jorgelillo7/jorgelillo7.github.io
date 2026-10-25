@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Te pilla la chancla? · Reto</title>
+<meta name="description" content="Te han retado en ¿Te pilla la chancla?: la misma partida, las mismas chanclas.">
+<meta property="og:title" content="¿Te pilla la chancla? 🩴">
+<meta property="og:description" content="Te han retado: misma partida, mismas chanclas. ¿Lo superas?">
+<meta property="og:image" content="https://jorgelillo7.github.io/assets/apps/slipper.png">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/apps/slipper.png">
+<style>
+  :root { --tile: #468cc8; --deep: #2c5c96; --cream: #fff6e6; --ink: #3c2828; --muted: #6b4a3a; --red: #b0263a; --green: #1f7a5a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px 16px;
+         background: linear-gradient(var(--tile), var(--deep)) fixed; color: var(--ink);
+         font: 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+  main { width: min(100%, 420px); background: var(--cream); border-radius: 28px; padding: 32px 24px; text-align: center; }
+  img { width: 96px; height: 96px; border-radius: 22px; image-rendering: pixelated; }
+  h1 { font-size: 1.6rem; margin: 12px 0 4px; color: var(--red); }
+  .score { font-size: 2.6rem; font-weight: 900; margin: 8px 0; }
+  p { color: var(--muted); margin: 0 0 20px; }
+  .btn { display: block; padding: 16px; border-radius: 999px; background: var(--green); color: #fff; font-weight: 800;
+         text-decoration: none; margin-bottom: 12px; }
+  .btn.alt { background: transparent; color: var(--ink); border: 1px solid rgba(60, 40, 40, .3); }
+  small { color: var(--muted); display: block; margin-top: 12px; } small a { color: var(--muted); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <img src="/assets/apps/slipper.png" alt="">
+  <h1 data-es="¿Te pilla la chancla?" data-en="Will the slipper get you?">¿Te pilla la chancla?</h1>
+  <p id="lead" data-es="Te han retado. Misma partida, mismas chanclas: hay que superar" data-en="You've been challenged. Same run, same slippers: beat">Te han retado.</p>
+  <div class="score" id="score" hidden></div>
+  <p id="error" hidden data-es="Este enlace no contiene un reto (o ha llegado cortado)." data-en="This link has no challenge in it (or it got cut off).">Enlace no válido.</p>
+  <a class="btn" id="open" href="#" hidden data-es="Aceptar el reto en la app" data-en="Take it on in the app">Aceptar el reto en la app</a>
+  <a class="btn alt" id="play" href="https://play.google.com/store/apps/details?id=com.jorgelillo.slipper"
+     data-es="Instalar desde Google Play" data-en="Get it on Google Play">Instalar desde Google Play</a>
+  <small data-es="Si no la tienes, instálala y vuelve a tocar el enlace." data-en="If you don't have it, install it and tap the link again.">Si no la tienes, instálala y vuelve a tocar el enlace.</small>
+  <small><a href="/privacy/slipper/" data-es="Política de privacidad" data-en="Privacy policy">Política de privacidad</a></small>
+</main>
+<script>
+// The challenge travels in the link (after # or in ?d=): "1" + base64url(raw deflate(JSON)), the
+// format of lillo-android-apps core/sharelink, with {s: seed, p: score, v: game version}.
+const es = (navigator.language || "es").toLowerCase().startsWith("es");
+const lang = es ? "es" : "en";
+document.documentElement.lang = lang;
+document.querySelectorAll("[data-" + lang + "]").forEach(el => { el.textContent = el.dataset[lang]; });
+const code = location.hash.slice(1) || new URLSearchParams(location.search).get("d") || "";
+
+async function decode(code) {
+  if (!code.startsWith("1")) throw new Error("version");
+  const b64 = code.slice(1).replace(/-/g, "+").replace(/_/g, "/");
+  const bytes = Uint8Array.from(atob(b64 + "===".slice((b64.length + 3) % 4)), c => c.charCodeAt(0));
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+  return JSON.parse(await new Response(stream).text());
+}
+
+(async () => {
+  try {
+    const challenge = await decode(code);
+    if (typeof challenge.p !== "number") throw new Error("score");
+    const score = document.getElementById("score");
+    score.textContent = challenge.p.toLocaleString(es ? "es-ES" : "en-US");
+    score.hidden = false;
+    if (/android/i.test(navigator.userAgent)) {
+      // Opens the app with this challenge if installed (the app reads ?d=), Google Play otherwise.
+      const open = document.getElementById("open");
+      open.href = "intent://jorgelillo7.github.io/c/?d=" + encodeURIComponent(code) +
+        "#Intent;scheme=https;package=com.jorgelillo.slipper;S.browser_fallback_url=" +
+        encodeURIComponent(document.getElementById("play").href) + ";end";
+      open.hidden = false;
+    }
+  } catch (e) {
+    document.getElementById("error").hidden = false;
+    document.getElementById("lead").hidden = true;
+  }
+})();
+</script>
+</body>
+</html>

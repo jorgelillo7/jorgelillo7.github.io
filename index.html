@@ -46,9 +46,16 @@
     </div>
   </div>
 
-  <section id="apps">
-    <h2><span class="pin">📌</span> Apps Android</h2>
-    <div class="apps">
+  <section id="apps" class="catalog">
+    <h2><span class="pin">📌</span> Apps y juegos Android</h2>
+    <!-- Apps or games, one list at a time (without JavaScript both show, one after the other).
+         #apps and #juegos in the address open each tab. -->
+    <span id="juegos" class="anchor"></span>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" id="tab-apps" aria-controls="apps-list" aria-selected="true">Apps <span class="n">4</span></button>
+      <button type="button" role="tab" id="tab-juegos" aria-controls="juegos-list" aria-selected="false">Juegos <span class="n">3</span></button>
+    </div>
+    <div class="apps" id="apps-list" role="tabpanel" aria-labelledby="tab-apps">
       <article class="card app">
         <img src="/assets/apps/christmas-countdown.png" alt="Icono de ¿Ya es Navidad?">
         <div>
@@ -94,11 +101,7 @@
         </div>
       </article>
     </div>
-  </section>
-
-  <section id="juegos">
-    <h2><span class="pin">📌</span> Juegos</h2>
-    <div class="apps">
+    <div class="apps" id="juegos-list" role="tabpanel" aria-labelledby="tab-juegos">
       <article class="card app">
         <img src="/assets/apps/whos-lying.png" alt="Icono de ¿Quién miente?">
         <div>
@@ -125,7 +128,7 @@
         <img src="/assets/apps/slipper.png" alt="Icono de ¿Te pilla la chancla?">
         <div>
           <h3>🩴 ¿Te pilla la chancla?</h3>
-          <p>Huye de la abuela, salta sus chanclas y róbale las croquetas. Pixel art, un dedo y retos por enlace con la misma partida. Sin anuncios.</p>
+          <p>Huye de la abuela, salta sus chanclas y róbale las croquetas. Combos, bocatas y patines, reto del día, chanclas para desbloquear y retos por enlace con la misma partida. Pixel art, un dedo y sin anuncios.</p>
           <div class="actions">
             <span class="soon">Próximamente en Google Play</span>
             <a href="/privacy/slipper/">Política de privacidad</a>
@@ -291,5 +294,21 @@
 <footer>
   <div class="wrap">Jorge Lillo · <a href="https://www.linkedin.com/in/jorgelillo">LinkedIn</a> · <a href="https://github.com/jorgelillo7">GitHub</a></div>
 </footer>
+<script>
+// Apps / games tabs: one list at a time; #juegos (the menu link) opens the games.
+(() => {
+  const tabs = [...document.querySelectorAll('.catalog [role="tab"]')];
+  const show = id => tabs.forEach(t => {
+    const on = t.id === "tab-" + id;
+    t.setAttribute("aria-selected", on);
+    document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+  });
+  tabs.forEach(t => t.addEventListener("click", () => show(t.id.slice(4))));
+  const fromHash = () => { if (location.hash === "#juegos") { show("juegos"); document.getElementById("apps").scrollIntoView(); } else if (location.hash === "#apps") show("apps"); };
+  window.addEventListener("hashchange", fromHash);
+  show("apps");
+  fromHash();
+})();
+</script>
 </body>
 </html>
