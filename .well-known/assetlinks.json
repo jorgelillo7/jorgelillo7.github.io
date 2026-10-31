@@ -26,5 +26,19 @@
         "55:D5:57:68:F5:C6:14:F4:54:5C:62:FE:53:45:F7:A7:2D:CE:44:0D:9F:83:EF:A1:FB:D6:7A:5B:0D:D9:43:E2"
       ]
     }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.jorgelillo.slipper",
+      "sha256_cert_fingerprints": [
+        "10:07:4B:28:4B:B6:0F:2F:E6:E9:A2:3D:B4:ED:35:EA:D1:13:DC:58:9A:D3:54:60:EE:9A:35:F6:83:E0:F0:97",
+        "C5:A5:4E:F1:9D:BE:B1:EC:B2:D2:E0:9A:FB:EC:D9:D2:0A:F8:0B:3C:86:CA:FA:89:6D:4C:94:AA:52:5F:9C:6F",
+        "55:D5:57:68:F5:C6:14:F4:54:5C:62:FE:53:45:F7:A7:2D:CE:44:0D:9F:83:EF:A1:FB:D6:7A:5B:0D:D9:43:E2"
+      ]
+    }
   }
 ]
