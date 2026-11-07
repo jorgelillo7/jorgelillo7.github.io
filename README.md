@@ -9,6 +9,9 @@ Personal site of Jorge Lillo, served by GitHub Pages. Plain static HTML/CSS, no 
 | `/t/` · `/p/` · `/c/` · `/q/` | Share-link landing pages: tournaments, impostor word packs, slipper challenges, polls (data in the link's `#`, never sent to the server) |
 | `assets/` | Shared stylesheet, favicons and app icons |
 
+When the interactive fiction reader publishes a new story, add it to the list in the Historias card
+of both `index.html` and `en/index.html`.
+
 Keep `/privacy/<app>/` URLs stable: published Google Play listings and the apps link to them.
 
 When adding an app: add its card to the Apps or Games tab (and its count) in both `index.html` and
