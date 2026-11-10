@@ -1,0 +1,300 @@
+{
+ "version": 1,
+ "sources": [
+  "https://www.riyadhairmetropolitano.com/",
+  "https://www.atleticodemadrid.com/calendario-completo-primer-equipo/"
+ ],
+ "events": [
+  {
+   "id": "espana-vs-inglaterra",
+   "title": "España vs Inglaterra",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2026-11-15"
+   ],
+   "either": false,
+   "time": null,
+   "competition": null,
+   "url": "https://www.riyadhairmetropolitano.com/eventos/espana-vs-inglaterra"
+  },
+  {
+   "id": "atletico-vs-viking",
+   "title": "Atlético de Madrid vs Viking FK",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2026-11-25"
+   ],
+   "either": false,
+   "time": "21:00",
+   "competition": "UEFA Champions League",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-viking"
+  },
+  {
+   "id": "atletico-vs-betis",
+   "title": "Atlético de Madrid vs Betis",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2026-12-05",
+    "2026-12-06"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-betis"
+  },
+  {
+   "id": "atletico-vs-valencia",
+   "title": "Atlético de Madrid vs Valencia",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2026-12-12",
+    "2026-12-13"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-valencia"
+  },
+  {
+   "id": "atletico-vs-racing",
+   "title": "Atlético de Madrid vs Racing",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-01-09",
+    "2027-01-10"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-racing"
+  },
+  {
+   "id": "atletico-vs-real-sociedad",
+   "title": "Atlético de Madrid vs Real Sociedad",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-01-16",
+    "2027-01-17"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-real-sociedad"
+  },
+  {
+   "id": "atletico-de-madrid-vs-fenerbahce",
+   "title": "Atlético de Madrid vs Fenerbahçe",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-01-27"
+   ],
+   "either": false,
+   "time": "21:00",
+   "competition": "UEFA Champions League",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-de-madrid-vs-fenerbahce"
+  },
+  {
+   "id": "atletico-vs-espanyol",
+   "title": "Atlético de Madrid vs Espanyol",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-01-30",
+    "2027-01-31"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-espanyol"
+  },
+  {
+   "id": "atletico-vs-elche",
+   "title": "Atlético de Madrid vs Elche",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-02-20",
+    "2027-02-21"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-elche"
+  },
+  {
+   "id": "atletico-vs-celta",
+   "title": "Atlético de Madrid vs Celta",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-03-06",
+    "2027-03-07"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-celta"
+  },
+  {
+   "id": "atletico-vs-getafe",
+   "title": "Atlético de Madrid vs Getafe",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-03-20",
+    "2027-03-21"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-getafe"
+  },
+  {
+   "id": "atletico-vs-levante",
+   "title": "Atlético de Madrid vs Levante",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-04-10",
+    "2027-04-11"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-levante"
+  },
+  {
+   "id": "atletico-vs-sevilla",
+   "title": "Atlético de Madrid vs Sevilla",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-04-17",
+    "2027-04-18"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-sevilla"
+  },
+  {
+   "id": "atletico-vs-alaves",
+   "title": "Atlético de Madrid vs Alavés",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-05-01",
+    "2027-05-02"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-alaves"
+  },
+  {
+   "id": "atletico-vs-rayo-vallecano",
+   "title": "Atlético de Madrid vs Rayo Vallecano",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-05-15",
+    "2027-05-16"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-rayo-vallecano"
+  },
+  {
+   "id": "atletico-vs-athletic",
+   "title": "Atlético de Madrid vs Athletic",
+   "kind": "match",
+   "level": "busy",
+   "days": [
+    "2027-05-22",
+    "2027-05-23"
+   ],
+   "either": true,
+   "time": null,
+   "competition": "LaLiga",
+   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-athletic"
+  },
+  {
+   "id": "2027-uefa-champions-league-final",
+   "title": "2027 UEFA Champions League Final",
+   "kind": "final",
+   "level": "max",
+   "days": [
+    "2027-06-05"
+   ],
+   "either": false,
+   "time": null,
+   "competition": null,
+   "url": "https://www.riyadhairmetropolitano.com/eventos/2027-uefa-champions-league-final"
+  },
+  {
+   "id": "karol-g",
+   "title": "Karol G",
+   "kind": "concert",
+   "level": "max",
+   "days": [
+    "2027-06-24",
+    "2027-06-25",
+    "2027-06-26",
+    "2027-06-27"
+   ],
+   "either": false,
+   "time": null,
+   "competition": null,
+   "url": "https://www.riyadhairmetropolitano.com/eventos/karol-g"
+  },
+  {
+   "id": "estopa-2",
+   "title": "Estopa",
+   "kind": "concert",
+   "level": "max",
+   "days": [
+    "2027-07-09"
+   ],
+   "either": false,
+   "time": null,
+   "competition": null,
+   "url": "https://www.riyadhairmetropolitano.com/eventos/estopa-2"
+  },
+  {
+   "id": "don-omar",
+   "title": "Don Omar",
+   "kind": "concert",
+   "level": "max",
+   "days": [
+    "2027-07-15"
+   ],
+   "either": false,
+   "time": null,
+   "competition": null,
+   "url": "https://www.riyadhairmetropolitano.com/eventos/don-omar"
+  },
+  {
+   "id": "harry-styles",
+   "title": "Harry Styles",
+   "kind": "concert",
+   "level": "max",
+   "days": [
+    "2027-07-30",
+    "2027-07-31",
+    "2027-08-02"
+   ],
+   "either": false,
+   "time": null,
+   "competition": null,
+   "url": "https://www.riyadhairmetropolitano.com/eventos/harry-styles"
+  }
+ ]
+}
