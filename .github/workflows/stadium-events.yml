@@ -1,0 +1,47 @@
+# Refreshes stadium/events.json, the feed of the "¿Hay jaleo? Metropolitano" Android app, from the
+# stadium's agenda and Atlético de Madrid's fixtures. Commits only when the events change. If a page
+# can't be read, the job fails and the last good file stays published.
+name: Stadium events
+
+on:
+  schedule:
+    - cron: "0 5 * * *"   # 06:00 in Madrid in winter, 07:00 in summer
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "tools/stadium_events.py"
+      - "tools/test_stadium_events.py"
+      - ".github/workflows/stadium-events.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stadium-events
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Test
+        run: python3 tools/test_stadium_events.py
+
+      - name: Build the feed
+        run: python3 tools/stadium_events.py stadium/events.json
+
+      - name: Publish if it changed
+        if: github.event_name != 'pull_request'
+        run: |
+          git add stadium/events.json
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Stadium events: refresh the feed"
+          git push
