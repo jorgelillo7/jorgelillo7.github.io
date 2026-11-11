@@ -23,6 +23,7 @@ STADIUM_URL = "https://www.riyadhairmetropolitano.com/"
 CLUB_URL = "https://www.atleticodemadrid.com/calendario-completo-primer-equipo/"
 USER_AGENT = "Mozilla/5.0 (compatible; jorgelillo7.github.io stadium-events feed; +https://jorgelillo7.github.io/)"
 HOME_VENUE = "Metropolitano"
+BIG_RIVALS = ("Real Madrid", "Barcelona")
 
 MONTHS = {
     "enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6, "julio": 7,
@@ -145,12 +146,22 @@ def merge(stadium, club, today):
     return sorted(upcoming, key=lambda e: (e["days"][0], e["id"]))
 
 
+def level_of(kind, title, competition):
+    """"max" for the days that fill the area most: concerts, finals, Champions League nights and
+    the matches against Real Madrid and Barcelona (more fans, more police, more traffic)."""
+    if kind in ("concert", "final"):
+        return "max"
+    if "Champions" in (competition or "") or any(rival in title for rival in BIG_RIVALS):
+        return "max"
+    return "busy"
+
+
 def entry(slug, title, kind, days, either, time, competition, url):
     return {
         "id": slug,
         "title": title,
         "kind": kind,                                 # match | final | concert
-        "level": "max" if kind in ("concert", "final") else "busy",
+        "level": level_of(kind, title, competition),  # busy | max
         "days": [d.isoformat() for d in sorted(days)],
         "either": either,                             # True: on one of the days, not fixed yet
         "time": time,                                 # "21:00", or None when unknown

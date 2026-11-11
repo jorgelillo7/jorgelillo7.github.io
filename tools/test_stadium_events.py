@@ -38,6 +38,7 @@ STADIUM = "".join([
     card("Deporte", "2027 UEFA Champions League Final", "5 · JUNIO · 2027", "2027-uefa-champions-league-final"),
     card("Música", "Harry Styles", "30 · JULIO · 2027 | 31 · JULIO · 2027 | 2 · AGOSTO · 2027 ", "harry-styles"),
     card("Deporte", "España vs Inglaterra", "15 · NOVIEMBRE · 2026", "espana-vs-inglaterra"),
+    card("Fútbol", "Atlético de Madrid vs Real Madrid", "27 O 28 · FEBRERO · 2027", "atletico-vs-real-madrid"),
 ])
 
 CLUB = "".join([
@@ -61,7 +62,12 @@ class StadiumEventsTest(unittest.TestCase):
         viking = self.events["atletico-vs-viking"]
         self.assertEqual((viking["days"], viking["either"], viking["time"]), (["2026-11-25"], False, "21:00"))
         self.assertEqual(viking["competition"], "UEFA Champions League")
-        self.assertEqual(viking["level"], "busy")
+
+    def test_champions_nights_and_big_rivals_are_the_biggest_days(self):
+        self.assertEqual(self.events["atletico-vs-viking"]["level"], "max")         # Champions League
+        self.assertEqual(self.events["atletico-vs-real-madrid"]["level"], "max")
+        self.assertEqual(self.events["atletico-vs-betis"]["level"], "busy")         # an ordinary LaLiga match
+        self.assertEqual(self.events["espana-vs-inglaterra"]["level"], "busy")
 
     def test_unfixed_match_keeps_both_days(self):
         betis = self.events["atletico-vs-betis"]

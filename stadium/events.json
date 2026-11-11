@@ -22,7 +22,7 @@
    "id": "atletico-vs-viking",
    "title": "Atlético de Madrid vs Viking FK",
    "kind": "match",
-   "level": "busy",
+   "level": "max",
    "days": [
     "2026-11-25"
    ],
@@ -91,7 +91,7 @@
    "id": "atletico-de-madrid-vs-fenerbahce",
    "title": "Atlético de Madrid vs Fenerbahçe",
    "kind": "match",
-   "level": "busy",
+   "level": "max",
    "days": [
     "2027-01-27"
    ],
