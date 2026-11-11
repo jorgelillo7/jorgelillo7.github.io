@@ -8,7 +8,7 @@ Reads two official pages and merges them:
 Standard library only, so the GitHub Actions job needs no installs. Exits with 1, without writing
 anything, if a page can't be read or the stadium lists no events: the last good file stays.
 
-  python3 tools/stadium_events.py stadium/events.json
+  python3 scripts/stadium_events.py stadium/events.json
 """
 
 import html

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Tests for stadium_events.py on small copies of the two pages' markup.
 
-  python3 tools/test_stadium_events.py
+  python3 scripts/test_stadium_events.py
 """
 
 import sys
