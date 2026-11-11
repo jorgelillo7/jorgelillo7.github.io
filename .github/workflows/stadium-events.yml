@@ -9,8 +9,8 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
-      - "tools/stadium_events.py"
-      - "tools/test_stadium_events.py"
+      - "scripts/stadium_events.py"
+      - "scripts/test_stadium_events.py"
       - ".github/workflows/stadium-events.yml"
 
 permissions:
@@ -28,10 +28,10 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Test
-        run: python3 tools/test_stadium_events.py
+        run: python3 scripts/test_stadium_events.py
 
       - name: Build the feed
-        run: python3 tools/stadium_events.py stadium/events.json
+        run: python3 scripts/stadium_events.py stadium/events.json
 
       - name: Publish if it changed
         if: github.event_name != 'pull_request'
