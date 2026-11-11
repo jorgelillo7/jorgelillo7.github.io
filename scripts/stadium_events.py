@@ -23,6 +23,7 @@ STADIUM_URL = "https://www.riyadhairmetropolitano.com/"
 CLUB_URL = "https://www.atleticodemadrid.com/calendario-completo-primer-equipo/"
 USER_AGENT = "Mozilla/5.0 (compatible; jorgelillo7.github.io stadium-events feed; +https://jorgelillo7.github.io/)"
 HOME_VENUE = "Metropolitano"
+HOME_CLUB = "Atlético"
 BIG_RIVALS = ("Real Madrid", "Barcelona")
 
 MONTHS = {
@@ -147,11 +148,14 @@ def merge(stadium, club, today):
 
 
 def level_of(kind, title, competition):
-    """"max" for the days that fill the area most: concerts, finals, Champions League nights and
-    the matches against Real Madrid and Barcelona (more fans, more police, more traffic)."""
+    """"max" for the days that fill the area most: concerts, finals, Champions League nights, the
+    matches against Real Madrid and Barcelona, and any match the home club does not play (a national
+    team or a neutral venue: a full house of people who do not come every other week)."""
     if kind in ("concert", "final"):
         return "max"
     if "Champions" in (competition or "") or any(rival in title for rival in BIG_RIVALS):
+        return "max"
+    if HOME_CLUB not in title:
         return "max"
     return "busy"
 
