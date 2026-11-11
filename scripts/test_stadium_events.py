@@ -67,7 +67,9 @@ class StadiumEventsTest(unittest.TestCase):
         self.assertEqual(self.events["atletico-vs-viking"]["level"], "max")         # Champions League
         self.assertEqual(self.events["atletico-vs-real-madrid"]["level"], "max")
         self.assertEqual(self.events["atletico-vs-betis"]["level"], "busy")         # an ordinary LaLiga match
-        self.assertEqual(self.events["espana-vs-inglaterra"]["level"], "busy")
+
+    def test_a_match_without_the_home_club_is_one_of_the_biggest_days(self):
+        self.assertEqual(self.events["espana-vs-inglaterra"]["level"], "max")
 
     def test_unfixed_match_keeps_both_days(self):
         betis = self.events["atletico-vs-betis"]
