@@ -4,6 +4,8 @@
 Reads two official pages and merges them:
   - the stadium's agenda (every event at the Riyadh Air Metropolitano: matches, concerts, finals),
   - Atlético de Madrid's full fixture list (kick-off times, and the day once LaLiga fixes it).
+Then scripts/stadium_overrides.json fills a time or competition neither page gives (a national-team
+match, say); an official value always wins over an override.
 
 Standard library only, so the GitHub Actions job needs no installs. Exits with 1, without writing
 anything, if a page can't be read or the stadium lists no events: the last good file stays.
@@ -18,10 +20,13 @@ import sys
 import unicodedata
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
 
 STADIUM_URL = "https://www.riyadhairmetropolitano.com/"
 CLUB_URL = "https://www.atleticodemadrid.com/calendario-completo-primer-equipo/"
 USER_AGENT = "Mozilla/5.0 (compatible; jorgelillo7.github.io stadium-events feed; +https://jorgelillo7.github.io/)"
+OVERRIDES = Path(__file__).with_name("stadium_overrides.json")
+OVERRIDE_FIELDS = {"time", "competition"}
 HOME_VENUE = "Metropolitano"
 HOME_CLUB = "Atlético"
 BIG_RIVALS = ("Real Madrid", "Barcelona")
@@ -174,11 +179,31 @@ def entry(slug, title, kind, days, either, time, competition, url):
     }
 
 
-def build(stadium_page, club_page, today):
+def load_overrides(path):
+    """{event id: {"time": "HH:MM", "competition": "..."}}; a missing file means none."""
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+
+
+def apply_overrides(events, overrides):
+    for event_id, fields in overrides.items():
+        unknown = set(fields) - OVERRIDE_FIELDS
+        if unknown:
+            raise ValueError(f"override {event_id}: unknown field(s) {sorted(unknown)}")
+        if "time" in fields and not re.fullmatch(r"\d{1,2}:\d{2}", fields["time"]):
+            raise ValueError(f"override {event_id}: time must be HH:MM, got {fields['time']!r}")
+    for event in events:
+        for field, value in overrides.get(event["id"], {}).items():
+            if event[field] is None:
+                event[field] = value
+        event["level"] = level_of(event["kind"], event["title"], event["competition"])
+
+
+def build(stadium_page, club_page, today, overrides=None):
     stadium = parse_stadium(stadium_page)
     if not stadium:
         raise ValueError("no events found on the stadium's page: its layout may have changed")
     events = merge(stadium, parse_club(club_page, today), today)
+    apply_overrides(events, overrides or {})
     return {
         "version": 1,
         "sources": [STADIUM_URL, CLUB_URL],
@@ -189,7 +214,7 @@ def build(stadium_page, club_page, today):
 def main(out):
     madrid_today = (datetime.now(timezone.utc) + timedelta(hours=1)).date()
     try:
-        feed = build(fetch(STADIUM_URL), fetch(CLUB_URL), madrid_today)
+        feed = build(fetch(STADIUM_URL), fetch(CLUB_URL), madrid_today, load_overrides(OVERRIDES))
     except Exception as error:  # noqa: BLE001 - any failure keeps the last good file
         print(f"stadium-events: {error}", file=sys.stderr)
         return 1
