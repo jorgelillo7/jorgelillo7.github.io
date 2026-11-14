@@ -6,10 +6,26 @@ Personal site of Jorge Lillo, served by GitHub Pages. Plain static HTML/CSS, no 
 |---|---|
 | `/` · `/en/` | Home in Spanish and English: pinned Android apps, about, experience, projects, education |
 | `/privacy/<app>/` | Privacy policy for each Android app |
-| `/t/` · `/p/` · `/c/` | Share-link landing pages: tournaments, impostor word packs, slipper challenges (data in the link's `#`, never sent to the server). `/q/` (polls) is written but kept out of `main` until the group-polls app exists |
+| `/t/` · `/p/` · `/c/` | Share-link landing pages, one letter per app (see [Share links](#share-links)) |
 | `/.well-known/assetlinks.json` | Lets Android open those links straight in the app (App Links): one entry per app that shares links |
 | `/stadium/events.json` | Feed of the "¿Hay jaleo? Metropolitano" app: upcoming events at the Riyadh Air Metropolitano, rebuilt daily by the **Stadium events** workflow (`scripts/stadium_events.py`) from the stadium's agenda, Atlético de Madrid's fixtures and `scripts/stadium_overrides.json`. Don't edit it by hand |
 | `assets/` | Shared stylesheet, favicons and app icons |
+
+## Share links
+
+Each app that shares something gets a one-letter path. The payload travels in the link's `#`, so it
+never reaches the server; the page only opens the app, or sends to its Play listing when the app is
+not installed.
+
+| Path | App (repo folder in `lillo-android-apps`) | What the link carries |
+|---|---|---|
+| `/t/` | ¿Solo quedará uno? · *Last one standing?* (`tournaments`) | A tournament |
+| `/p/` | ¿Quién miente? · *Who's lying?* (`whos-lying`) | An impostor word pack |
+| `/c/` | ¿Te pilla la chancla? · *Will the slipper get you?* (`slipper`) | A slipper challenge |
+| `/q/` | ¿Qué votáis? · *What do you vote?* (`group-polls`) | A poll. Not on `main` yet: the app is not published |
+
+The letter is part of every link already shared and of the `pathPrefix` in each app's manifest, so it
+never changes. A new app takes a free letter, adds its page here and its entry to `assetlinks.json`.
 
 When the interactive fiction reader publishes a new story, add it to the list in the Historias card
 of both `index.html` and `en/index.html`.
