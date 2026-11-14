@@ -125,6 +125,23 @@ class StadiumEventsTest(unittest.TestCase):
     def test_the_committed_overrides_file_is_valid(self):
         feed.build(STADIUM, CLUB, TODAY, feed.load_overrides(feed.OVERRIDES))
 
+    def test_events_in_the_next_week_without_a_time_are_flagged(self):
+        events = feed.build(STADIUM, CLUB, TODAY)["events"]
+        flagged = [e["id"] for e in feed.missing_times(events, TODAY)]
+        self.assertEqual(flagged, ["espana-vs-inglaterra"])  # 15/11; Viking (25/11) is too far and has one
+
+    def test_nothing_is_flagged_once_the_override_gives_the_time(self):
+        overrides = {"espana-vs-inglaterra": {"time": "20:45"}}
+        events = feed.build(STADIUM, CLUB, TODAY, overrides)["events"]
+        self.assertEqual(feed.missing_times(events, TODAY), [])
+
+    def test_the_report_names_each_event_and_the_line_to_add(self):
+        events = feed.build(STADIUM, CLUB, TODAY)["events"]
+        report = feed.missing_times_report(feed.missing_times(events, TODAY))
+        self.assertIn("España vs Inglaterra", report)
+        self.assertIn('"espana-vs-inglaterra": {"time": "HH:MM"}', report)
+        self.assertEqual(feed.missing_times_report([]), "")
+
     def test_empty_stadium_page_fails_instead_of_publishing_nothing(self):
         with self.assertRaises(ValueError):
             feed.build("<html>new layout</html>", CLUB, TODAY)

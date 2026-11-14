@@ -20,7 +20,8 @@ When adding an app: add its card to the Apps or Games tab (and its count) in bot
 
 When neither official page gives a time or competition (a national-team match, say), add it to
 `scripts/stadium_overrides.json` by event id; an official value always wins, and an id that has gone
-from the agenda is simply ignored.
+from the agenda is simply ignored. The workflow keeps one issue open, assigned to the owner, listing
+the events of the next 7 days that still have no time, and closes it once none is missing.
 
 Keep `/stadium/events.json` stable too: installed apps read it. If the workflow fails, a source page
 changed its layout: fix `scripts/stadium_events.py`, run `python3 scripts/test_stadium_events.py`, and the
