@@ -6,8 +6,9 @@ Personal site of Jorge Lillo, served by GitHub Pages. Plain static HTML/CSS, no 
 |---|---|
 | `/` · `/en/` | Home in Spanish and English: pinned Android apps, about, experience, projects, education |
 | `/privacy/<app>/` | Privacy policy for each Android app |
-| `/t/` · `/p/` · `/c/` · `/q/` | Share-link landing pages: tournaments, impostor word packs, slipper challenges, polls (data in the link's `#`, never sent to the server) |
-| `/stadium/events.json` | Feed of the "¿Hay jaleo? Metropolitano" app: upcoming events at the Riyadh Air Metropolitano, rebuilt daily by the **Stadium events** workflow (`scripts/stadium_events.py`) from the stadium's agenda and Atlético de Madrid's fixtures. Don't edit it by hand |
+| `/t/` · `/p/` · `/c/` | Share-link landing pages: tournaments, impostor word packs, slipper challenges (data in the link's `#`, never sent to the server). `/q/` (polls) is written but kept out of `main` until the group-polls app exists |
+| `/.well-known/assetlinks.json` | Lets Android open those links straight in the app (App Links): one entry per app that shares links |
+| `/stadium/events.json` | Feed of the "¿Hay jaleo? Metropolitano" app: upcoming events at the Riyadh Air Metropolitano, rebuilt daily by the **Stadium events** workflow (`scripts/stadium_events.py`) from the stadium's agenda, Atlético de Madrid's fixtures and `scripts/stadium_overrides.json`. Don't edit it by hand |
 | `assets/` | Shared stylesheet, favicons and app icons |
 
 When the interactive fiction reader publishes a new story, add it to the list in the Historias card
