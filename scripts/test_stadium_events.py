@@ -104,6 +104,27 @@ class StadiumEventsTest(unittest.TestCase):
         days = [e["days"][0] for e in feed.build(STADIUM, CLUB, TODAY)["events"]]
         self.assertEqual(days, sorted(days))
 
+    def test_an_override_fills_what_no_official_page_gives(self):
+        overrides = {"espana-vs-inglaterra": {"time": "20:45", "competition": "UEFA Nations League"}}
+        events = {e["id"]: e for e in feed.build(STADIUM, CLUB, TODAY, overrides)["events"]}
+        spain = events["espana-vs-inglaterra"]
+        self.assertEqual((spain["time"], spain["competition"], spain["level"]),
+                         ("20:45", "UEFA Nations League", "max"))
+
+    def test_an_official_value_wins_over_an_override(self):
+        overrides = {"atletico-vs-viking": {"time": "18:00"}}
+        events = {e["id"]: e for e in feed.build(STADIUM, CLUB, TODAY, overrides)["events"]}
+        self.assertEqual(events["atletico-vs-viking"]["time"], "21:00")
+
+    def test_a_malformed_override_is_refused(self):
+        with self.assertRaises(ValueError):
+            feed.build(STADIUM, CLUB, TODAY, {"espana-vs-inglaterra": {"title": "x"}})
+        with self.assertRaises(ValueError):
+            feed.build(STADIUM, CLUB, TODAY, {"espana-vs-inglaterra": {"time": "8pm"}})
+
+    def test_the_committed_overrides_file_is_valid(self):
+        feed.build(STADIUM, CLUB, TODAY, feed.load_overrides(feed.OVERRIDES))
+
     def test_empty_stadium_page_fails_instead_of_publishing_nothing(self):
         with self.assertRaises(ValueError):
             feed.build("<html>new layout</html>", CLUB, TODAY)

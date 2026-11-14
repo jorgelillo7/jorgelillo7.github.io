@@ -18,6 +18,10 @@ Keep `/privacy/<app>/` URLs stable: published Google Play listings and the apps 
 When adding an app: add its card to the Apps or Games tab (and its count) in both `index.html` and
 `en/index.html`, its icon to `assets/apps/`, and its policy under `privacy/<app>/`.
 
+When neither official page gives a time or competition (a national-team match, say), add it to
+`scripts/stadium_overrides.json` by event id; an official value always wins, and an id that has gone
+from the agenda is simply ignored.
+
 Keep `/stadium/events.json` stable too: installed apps read it. If the workflow fails, a source page
 changed its layout: fix `scripts/stadium_events.py`, run `python3 scripts/test_stadium_events.py`, and the
 next run publishes again (the last good file stays meanwhile).
