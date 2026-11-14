@@ -11,6 +11,7 @@ Standard library only, so the GitHub Actions job needs no installs. Exits with 1
 anything, if a page can't be read or the stadium lists no events: the last good file stays.
 
   python3 scripts/stadium_events.py stadium/events.json
+  python3 scripts/stadium_events.py --missing-times stadium/events.json   # what lacks a time this week
 """
 
 import html
@@ -211,6 +212,25 @@ def build(stadium_page, club_page, today, overrides=None):
     }
 
 
+def missing_times(events, today, days=7):
+    """Events within the next `days` days that still have no kick-off time."""
+    horizon = (today + timedelta(days=days)).isoformat()
+    return [e for e in events if e["time"] is None and any(today.isoformat() <= d <= horizon for d in e["days"])]
+
+
+def missing_times_report(events):
+    """Markdown for the issue the workflow keeps open; empty when nothing is missing."""
+    if not events:
+        return ""
+    lines = ["These events at the Metropolitano have no kick-off time on any official page (the stadium",
+             "often prints it only inside its banner image). Add each to `scripts/stadium_overrides.json`:", ""]
+    for event in events:
+        lines.append(f"- **{event['title']}** · {' / '.join(event['days'])} · {event['url']}")
+        lines.append(f'  `"{event["id"]}": {{"time": "HH:MM"}}`')
+    lines += ["", "The issue closes by itself once none is missing."]
+    return "\n".join(lines)
+
+
 def main(out):
     madrid_today = (datetime.now(timezone.utc) + timedelta(hours=1)).date()
     try:
@@ -226,4 +246,9 @@ def main(out):
 
 
 if __name__ == "__main__":
+    if sys.argv[1:2] == ["--missing-times"]:
+        with open(sys.argv[2], encoding="utf-8") as file:
+            madrid_today = (datetime.now(timezone.utc) + timedelta(hours=1)).date()
+            print(missing_times_report(missing_times(json.load(file)["events"], madrid_today)))
+        sys.exit(0)
     sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else "stadium/events.json"))

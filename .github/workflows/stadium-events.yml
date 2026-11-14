@@ -15,6 +15,7 @@ on:
 
 permissions:
   contents: write
+  issues: write   # one issue listing this week's events with no kick-off time
 
 concurrency:
   group: stadium-events
@@ -45,3 +46,23 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Stadium events: refresh the feed"
           git push
+
+      # Opens (or updates) one issue while an event in the next 7 days has no time, and closes it
+      # once none does. It never fails the job: the feed is published either way.
+      - name: Flag events without a time
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          body="$(python3 scripts/stadium_events.py --missing-times stadium/events.json)"
+          title="Stadium events without a kick-off time in the next 7 days"
+          number="$(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[0].number // empty')"
+          if [ -n "$body" ]; then
+            if [ -n "$number" ]; then
+              gh issue edit "$number" --body "$body"
+            else
+              gh issue create --title "$title" --body "$body" --assignee "${{ github.repository_owner }}"
+            fi
+          elif [ -n "$number" ]; then
+            gh issue close "$number" --comment "Every event in the next 7 days has a time now."
+          fi
