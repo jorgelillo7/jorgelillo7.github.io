@@ -4,12 +4,13 @@ Personal site of Jorge Lillo, served by GitHub Pages. Plain static HTML/CSS, no 
 
 | Path | Content |
 |---|---|
-| `/` · `/en/` | Home in Spanish and English: pinned Android apps, about, experience, projects, education |
+| `/` · `/en/` | Home in Spanish and English: Android apps and games, websites and bots, code, about, experience, education. Each page has a CSP `<meta>` with its inline script's hash: after editing that script run `python3 scripts/check_csp.py --fix` (the **Site checks** workflow fails on a stale hash) |
 | `/privacy/<app>/` | Privacy policy for each Android app |
 | `/t/` · `/p/` · `/c/` | Share-link landing pages, one letter per app (see [Share links](#share-links)) |
 | `/.well-known/assetlinks.json` | Lets Android open those links straight in the app (App Links): one entry per app that shares links |
 | `/stadium/events.json` | Feed of the "¿Hay jaleo? Metropolitano" app: upcoming events at the Riyadh Air Metropolitano, rebuilt daily by the **Stadium events** workflow (`scripts/stadium_events.py`) from the stadium's agenda, Atlético de Madrid's fixtures and `scripts/stadium_overrides.json`. Don't edit it by hand |
-| `assets/` | Shared stylesheet, favicons and app icons |
+| `assets/` | Shared stylesheet, favicons, app icons and `og-card.png` (the 1200×630 share preview of both homes) |
+| `robots.txt` · `sitemap.xml` | The homes and privacy pages are listed for search engines; the share-link pages carry `noindex` instead (blocking them in robots.txt would also hide their link previews) |
 
 ## Share links
 

@@ -2,16 +2,33 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<!-- The script hash must change with the inline script below (scripts/check_csp.py). -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-vknLZcKhse9tWlaaBHLUj84sTx/6EaGlqLKZi0hmxvE='; style-src 'self'; img-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jorge Lillo · Backend Chapter Lead</title>
 <meta name="description" content="Jorge Lillo Cobacho: Backend Chapter Lead en Orange España. Modernización de legacy, migración a cloud (OCI, GCP) y apps Android.">
 <link rel="alternate" hreflang="es" href="https://jorgelillo7.github.io/">
 <link rel="alternate" hreflang="en" href="https://jorgelillo7.github.io/en/">
+<link rel="canonical" href="https://jorgelillo7.github.io/">
+<link rel="alternate" hreflang="x-default" href="https://jorgelillo7.github.io/">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0d1117">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Jorge Lillo · Backend Chapter Lead">
+<meta property="og:description" content="Jorge Lillo Cobacho: Backend Chapter Lead en Orange España. Modernización de legacy, migración a cloud (OCI, GCP) y apps Android.">
+<meta property="og:url" content="https://jorgelillo7.github.io/">
+<meta property="og:image" content="https://jorgelillo7.github.io/assets/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/favicon.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
+<a class="skip" href="#main">Saltar al contenido</a>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="/">JL<span>_</span></a>
@@ -19,16 +36,16 @@
       <a href="#apps">Apps</a>
       <a href="#juegos">Juegos</a>
       <a href="#webs">Webs</a>
+      <a href="#proyectos">Código</a>
       <a href="#sobre-mi">Sobre mí</a>
       <a href="#experiencia">Experiencia</a>
-      <a href="#proyectos">Proyectos</a>
       <a href="#estudios">Estudios</a>
     </nav>
     <a class="lang" href="/en/" hreflang="en" lang="en">EN</a>
   </div>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="main">
   <div class="hero">
     <p class="prompt">&gt; hola, soy</p>
     <h1>Jorge Lillo Cobacho</h1>
@@ -57,7 +74,7 @@
     </div>
     <div class="apps" id="apps-list" role="tabpanel" aria-labelledby="tab-apps">
       <article class="card app">
-        <img src="/assets/apps/christmas-countdown.png" alt="Icono de ¿Ya es Navidad?">
+        <img src="/assets/apps/christmas-countdown.png" alt="Icono de ¿Ya es Navidad?" width="72" height="72">
         <div>
           <h3>🎄 ¿Ya es Navidad? Cuenta atrás</h3>
           <p>Días, horas y noches hasta Navidad, con calendario de adviento, widget y villancicos. Sin anuncios ni rastreo.</p>
@@ -68,7 +85,7 @@
         </div>
       </article>
       <article class="card app">
-        <img src="/assets/apps/decision-wheel.png" alt="Icono de ¿Qué hacemos? Ruleta">
+        <img src="/assets/apps/decision-wheel.png" alt="Icono de ¿Qué hacemos? Ruleta" width="72" height="72">
         <div>
           <h3>🎡 ¿Qué hacemos? Ruleta</h3>
           <p>Gira y decide dónde comer o qué hacer. No repite lo de ayer, con vetos en grupo e historial. Sin anuncios ni rastreo.</p>
@@ -79,18 +96,7 @@
         </div>
       </article>
       <article class="card app">
-        <img src="/assets/apps/group-polls.png" alt="Icono de ¿Qué votáis?">
-        <div>
-          <h3>🗳️ ¿Qué votáis? Sondeos</h3>
-          <p>Encuestas rápidas de dos respuestas: privadas para tu grupo o públicas para todos, y adivina qué votará la mayoría. Sin cuentas ni anuncios.</p>
-          <div class="actions">
-            <span class="soon">Próximamente en Google Play</span>
-            <a href="/privacy/group-polls/">Política de privacidad</a>
-          </div>
-        </div>
-      </article>
-      <article class="card app">
-        <img src="/assets/apps/tournaments.png" alt="Icono de ¿Solo quedará uno?">
+        <img src="/assets/apps/tournaments.png" alt="Icono de ¿Solo quedará uno?" width="72" height="72">
         <div>
           <h3>👑 ¿Solo quedará uno? Torneos</h3>
           <p>Torneos entre amigos de cartas, ping-pong o lo que sea: eliminatoria o suizo, cuadro a dos lados, historial y salón de la fama. Se pasa a otro móvil con un QR, sin cuentas ni servidores.</p>
@@ -101,7 +107,7 @@
         </div>
       </article>
       <article class="card app">
-        <img src="/assets/apps/stadium-events.png" alt="Icono de ¿Hay jaleo? Metropolitano">
+        <img src="/assets/apps/stadium-events.png" alt="Icono de ¿Hay jaleo? Metropolitano" width="72" height="72">
         <div>
           <h3>🏟️ ¿Hay jaleo? Metropolitano</h3>
           <p>Para los vecinos del Riyadh Air Metropolitano: ¿mañana hay partido, concierto o final? Respuesta en grande, aviso la víspera y widget, sin configurar nada. Datos de la agenda oficial del estadio y del calendario del Atlético. Sin anuncios ni ubicación.</p>
@@ -111,10 +117,21 @@
           </div>
         </div>
       </article>
+      <article class="card app">
+        <img src="/assets/apps/group-polls.png" alt="Icono de ¿Qué votáis?" width="72" height="72">
+        <div>
+          <h3>🗳️ ¿Qué votáis? Sondeos</h3>
+          <p>Encuestas rápidas de dos respuestas: privadas para tu grupo o públicas para todos, y adivina qué votará la mayoría. Sin cuentas ni anuncios.</p>
+          <div class="actions">
+            <span class="soon">Próximamente en Google Play</span>
+            <a href="/privacy/group-polls/">Política de privacidad</a>
+          </div>
+        </div>
+      </article>
     </div>
     <div class="apps" id="juegos-list" role="tabpanel" aria-labelledby="tab-juegos">
       <article class="card app">
-        <img src="/assets/apps/whos-lying.png" alt="Icono de ¿Quién miente?">
+        <img src="/assets/apps/whos-lying.png" alt="Icono de ¿Quién miente?" width="72" height="72" loading="lazy">
         <div>
           <h3>🕵️ ¿Quién miente? Impostor</h3>
           <p>El juego del impostor para jugar en grupo con un solo móvil: tres modos, modo dibujo y 21 paquetes gratis. Sin anuncios ni rastreo.</p>
@@ -125,7 +142,7 @@
         </div>
       </article>
       <article class="card app">
-        <img src="/assets/apps/league-cards.png" alt="Icono de ¿Quién llora esta jornada?">
+        <img src="/assets/apps/league-cards.png" alt="Icono de ¿Quién llora esta jornada?" width="72" height="72" loading="lazy">
         <div>
           <h3>😭 ¿Quién llora esta jornada?</h3>
           <p>Juego de cartas para tu liga fantasy entre amigos, al estilo Reigns: los de la liga te escriben cada jornada y decides deslizando. Vigila el dinero, la plantilla, la paciencia de la liga y los lloros; colecciona logros y finales.</p>
@@ -136,7 +153,7 @@
         </div>
       </article>
       <article class="card app">
-        <img src="/assets/apps/slipper.png" alt="Icono de ¿Te pilla la chancla?">
+        <img src="/assets/apps/slipper.png" alt="Icono de ¿Te pilla la chancla?" width="72" height="72" loading="lazy">
         <div>
           <h3>🩴 ¿Te pilla la chancla?</h3>
           <p>Huye de la abuela, salta sus chanclas y róbale las croquetas. Combos, bocatas y patines, reto del día, chanclas para desbloquear y retos por enlace con la misma partida. Pixel art, un dedo y sin anuncios.</p>
@@ -153,7 +170,7 @@
     <h2><span class="pin">📌</span> Webs y bots</h2>
     <div class="apps">
       <article class="card app">
-        <img src="/assets/apps/be-water.png" alt="Icono de Be Water">
+        <img src="/assets/apps/be-water.png" alt="Icono de Be Water" width="72" height="72" loading="lazy">
         <div>
           <h3>Be Water</h3>
           <p>Catálogo abierto de las aguas embotelladas de España: composición, origen, aguas parecidas y fotos de etiquetas que una IA lee y rellena.</p>
@@ -164,7 +181,7 @@
         </div>
       </article>
       <article class="card app">
-        <img src="/assets/apps/biwenger-tools.png" alt="Icono de Biwenger Tools">
+        <img src="/assets/apps/biwenger-tools.png" alt="Icono de Biwenger Tools" width="72" height="72" loading="lazy">
         <div>
           <h3>Biwenger Tools</h3>
           <p>Todo lo de nuestra liga de Biwenger: comunicados, palmarés, mercado, participación y salseo, con un bot de Telegram que analiza el equipo y puja solo.</p>
@@ -175,7 +192,7 @@
         </div>
       </article>
       <article class="card app">
-        <img src="/assets/apps/chucknorris-bot.png" alt="Icono de Chuck Norris Bot">
+        <img src="/assets/apps/chucknorris-bot.png" alt="Icono de Chuck Norris Bot" width="72" height="72" loading="lazy">
         <div>
           <h3>Chuck Norris Bot</h3>
           <p>Bot de Telegram con datos de Chuck Norris. Nació en 2015 con Node y Heroku; resucitado en 2026 en Cloud Run.</p>
@@ -186,7 +203,7 @@
         </div>
       </article>
       <article class="card app">
-        <img src="/assets/apps/interactive-fiction.png" alt="Icono de Historias">
+        <img src="/assets/apps/interactive-fiction.png" alt="Icono de Historias" width="72" height="72" loading="lazy">
         <div>
           <h3>Historias</h3>
           <p>Lector web de historias de ficción interactiva: tú decides qué pasa, la partida se guarda sola y el código del final pasa de un capítulo al siguiente. En Cloudflare Workers.</p>
@@ -202,13 +219,27 @@
     </div>
   </section>
 
+  <section id="proyectos">
+    <h2>Código</h2>
+    <div class="grid">
+      <article class="card project">
+        <h3><a href="https://github.com/jorgelillo7/lillorepo">lillorepo</a></h3>
+        <p>Monorepo personal en producción sobre Google Cloud y Cloudflare: bots de Telegram, servicios web y jobs programados en Cloud Run y Firestore, webs en Cloudflare Workers, con reconocimiento de fotos mediante Gemini. Desarrollado con Claude Code y subagentes, specs primero con OpenSpec, Bazel y CI/CD con GitHub Actions.</p>
+      </article>
+      <article class="card project">
+        <h3><a href="https://github.com/jorgelillo7/lillo-android-apps">lillo-android-apps</a></h3>
+        <p>Mis apps Android en Kotlin y Jetpack Compose: módulos compartidos, convention plugins de Gradle y publicación en Google Play.</p>
+      </article>
+    </div>
+  </section>
+
   <section id="sobre-mi">
     <h2>Sobre mí</h2>
     <p>Lidero el chapter backend que moderniza el legacy de Orange España: aplicaciones y bases de datos Oracle camino de la nube (OCI, GCP).</p>
     <p>Mi forma de trabajar: entrar hasta la cocina del legacy (modelo de datos, permisos, queries) para poder moverlo con seguridad.</p>
     <ul class="tags">
       <li>Liderazgo de equipos</li><li>Arquitectura de software</li><li>Oracle Cloud (OCI)</li>
-      <li>Google Cloud</li><li>Oracle Database</li><li>Java</li><li>C++</li><li>Claude Code</li>
+      <li>Google Cloud</li><li>Oracle Database</li><li>Java</li><li>Kotlin</li><li>Python</li><li>C++</li><li>Claude Code</li>
     </ul>
   </section>
 
@@ -247,7 +278,8 @@
           <div class="title">Ingeniero de software <span class="muted">(ene. 2020 – sept. 2022)</span></div>
           <ul>
             <li>Microservicios en Node.js y después en Java con Vert.x, con Cadence para los flujos de negocio y Kafka para la mensajería.</li>
-            <li>Responsable del CRM C++ de la compañía (también con Kafka): buenas prácticas, limpieza de un proyecto legacy y migración de la aplicación a la nube en GCP y de la base de datos Oracle (on-premise), junto a equipos externos.</li>
+            <li>Responsable del CRM C++ de la compañía (también con Kafka): buenas prácticas, limpieza de un proyecto legacy y migración de la aplicación a la nube en GCP, junto a equipos externos.</li>
+            <li>Mantenimiento de su base de datos Oracle 11 on-premise y preparación de la migración: reducción de permisos, control exhaustivo de las tablas nuevas y limpieza de objetos sin uso.</li>
           </ul>
         </div>
       </li>
@@ -281,26 +313,6 @@
     </ol>
   </section>
 
-  <section id="proyectos">
-    <h2>Proyectos</h2>
-    <div class="grid">
-      <article class="card project">
-        <h3><a href="https://github.com/jorgelillo7/lillorepo">lillorepo</a></h3>
-        <p>Monorepo personal en producción sobre Google Cloud: bots de Telegram, servicios web y jobs programados en Cloud Run y Firestore, con reconocimiento de fotos mediante Gemini. Desarrollado con Claude Code y subagentes, specs primero con OpenSpec, Bazel y CI/CD con GitHub Actions.</p>
-      </article>
-      <article class="card project">
-        <h3><a href="https://github.com/jorgelillo7/lillo-android-apps">lillo-android-apps</a></h3>
-        <p>Mis apps Android en Kotlin y Jetpack Compose: módulos compartidos, convention plugins de Gradle y publicación en Google Play.</p>
-      </article>
-    </div>
-    <p class="muted" style="margin: 22px 0 0;">Archivo (proyectos universitarios y primeros trabajos):</p>
-    <ul class="archive">
-      <li><a href="https://github.com/jorgelillo7/top_games">Top Games</a> y <a href="https://github.com/jorgelillo7/top_games_ionic">Top Games Mobile</a>: proyecto fin de máster, web y app híbrida con Ionic (UPM, 2015).</li>
-      <li><a href="https://github.com/jorgelillo7/SuperMarket">SuperMarket</a>: proyecto fin de grado en Java (UAH, 2013).</li>
-      <li>En Innovae: apps para las promociones de El Mundo (Android), iOncor (iOS/Android), gestión de pacientes de la Unidad del Dolor Agudo (iPad) y webs para clientes.</li>
-    </ul>
-  </section>
-
   <section id="estudios">
     <h2>Estudios</h2>
     <div class="grid">
@@ -313,6 +325,12 @@
         <div class="muted"><a href="https://www.uah.es">Universidad de Alcalá</a> · 2009 – 2013</div>
       </div>
     </div>
+    <p class="muted archive-note">Archivo (proyectos universitarios y primeros trabajos):</p>
+    <ul class="archive">
+      <li><a href="https://github.com/jorgelillo7/top_games">Top Games</a> y <a href="https://github.com/jorgelillo7/top_games_ionic">Top Games Mobile</a>: proyecto fin de máster, web y app híbrida con Ionic (UPM, 2015).</li>
+      <li><a href="https://github.com/jorgelillo7/SuperMarket">SuperMarket</a>: proyecto fin de grado en Java (UAH, 2013).</li>
+      <li>En Innovae: apps para las promociones de El Mundo (Android), iOncor (iOS/Android), gestión de pacientes de la Unidad del Dolor Agudo (iPad) y webs para clientes.</li>
+    </ul>
   </section>
 </main>
 
@@ -326,9 +344,18 @@
   const show = id => tabs.forEach(t => {
     const on = t.id === "tab-" + id;
     t.setAttribute("aria-selected", on);
+    t.tabIndex = on ? 0 : -1;
     document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
   });
   tabs.forEach(t => t.addEventListener("click", () => show(t.id.slice(4))));
+  // Arrow keys move between the tabs, as the tab pattern promises.
+  tabs.forEach((t, i) => t.addEventListener("keydown", e => {
+    const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+    if (!step) return;
+    const next = tabs[(i + step + tabs.length) % tabs.length];
+    show(next.id.slice(4));
+    next.focus();
+  }));
   const fromHash = () => { if (location.hash === "#juegos") { show("juegos"); document.getElementById("apps").scrollIntoView(); } else if (location.hash === "#apps") show("apps"); };
   window.addEventListener("hashchange", fromHash);
   show("apps");

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jorgelillo7.github.io/sitemap.xml
