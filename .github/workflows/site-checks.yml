@@ -1,0 +1,19 @@
+name: Site checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: CSP hashes match the inline scripts
+        run: python3 scripts/check_csp.py
+      - name: Stadium events feed tests
+        run: python3 scripts/test_stadium_events.py
