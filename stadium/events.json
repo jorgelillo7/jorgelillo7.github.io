@@ -6,19 +6,6 @@
  ],
  "events": [
   {
-   "id": "espana-vs-inglaterra",
-   "title": "España vs Inglaterra",
-   "kind": "match",
-   "level": "max",
-   "days": [
-    "2026-11-15"
-   ],
-   "either": false,
-   "time": "20:45",
-   "competition": "UEFA Nations League",
-   "url": "https://www.riyadhairmetropolitano.com/eventos/espana-vs-inglaterra"
-  },
-  {
    "id": "atletico-vs-viking",
    "title": "Atlético de Madrid vs Viking FK",
    "kind": "match",
@@ -37,11 +24,10 @@
    "kind": "match",
    "level": "busy",
    "days": [
-    "2026-12-05",
     "2026-12-06"
    ],
-   "either": true,
-   "time": null,
+   "either": false,
+   "time": "21:00",
    "competition": "LaLiga",
    "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-betis"
   },
