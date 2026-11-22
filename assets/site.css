@@ -131,7 +131,6 @@ footer { padding: 36px 0 56px; border-top: 1px solid var(--line); color: var(--m
   .hero { padding-top: 48px; }
   .app { flex-direction: column; }
 }
-.actions .soon { color: var(--muted); }
 
 /* Apps / games tabs on the home page. [hidden] wins over the lists' display: grid. */
 [hidden] { display: none !important; }

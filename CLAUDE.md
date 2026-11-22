@@ -18,7 +18,7 @@ A change that looks cosmetic here can break an installed app.
 |---|---|---|
 | `/privacy/<app>/` | Google Play listings and each app's About sheet | The listing's policy link; Play can suspend the app |
 | `/.well-known/assetlinks.json` | Android, to verify App Links | Shared links stop opening the app |
-| `/t/` `/p/` `/c/` `/q/` | Links already shared by users (data in the `#` fragment) | Every link shared so far |
+| `/t/` `/p/` `/c/` | Links already shared by users (data in the `#` fragment) | Every link shared so far |
 | `/stadium/events.json` | The installed "¿Hay jaleo? Metropolitano" app | The app's events, reminders and widget |
 
 ## Ground rules
@@ -32,9 +32,7 @@ A change that looks cosmetic here can break an installed app.
   together, including the app counts on the tabs.
 - **No build step, no dependencies.** Pages serves the tree as committed
   (`.nojekyll`); scripts use the Python standard library only.
-- **A page that is not live yet stays out of `main`.** `q/` and its
-  `assetlinks.json` entry wait for the group-polls app (lillo-android-apps
-  `PENDING.md`).
+- **A page that is not live yet stays out of `main`.**
 
 ## Commands
 

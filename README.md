@@ -23,7 +23,6 @@ not installed.
 | `/t/` | ¿Solo quedará uno? · *Last one standing?* (`tournaments`) | A tournament |
 | `/p/` | ¿Quién miente? · *Who's lying?* (`whos-lying`) | An impostor word pack |
 | `/c/` | ¿Te pilla la chancla? · *Will the slipper get you?* (`slipper`) | A slipper challenge |
-| `/q/` | ¿Qué votáis? · *What do you vote?* (`group-polls`) | A poll. Not on `main` yet: the app is not published |
 
 The letter is part of every link already shared and of the `pathPrefix` in each app's manifest, so it
 never changes. A new app takes a free letter, adds its page here and its entry to `assetlinks.json`.
