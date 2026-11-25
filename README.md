@@ -4,13 +4,21 @@ Personal site of Jorge Lillo, served by GitHub Pages. Plain static HTML/CSS, no 
 
 | Path | Content |
 |---|---|
-| `/` · `/en/` | Home in Spanish and English: Android apps and games, websites and bots, code, about, experience, education. Each page has a CSP `<meta>` with its inline script's hash: after editing that script run `python3 scripts/check_csp.py --fix` (the **Site checks** workflow fails on a stale hash) |
+| `/` · `/en/` | Home in Spanish and English: Android apps and games, websites and bots, code, about, experience, education. Each page has a CSP `<meta>` with its inline script's hash (see [Content Security Policy](#content-security-policy)) |
 | `/privacy/<app>/` | Privacy policy for each Android app |
-| `/t/` · `/p/` · `/c/` | Share-link landing pages, one letter per app (see [Share links](#share-links)) |
+| `/t/` · `/p/` · `/c/` | Share-link landing pages, one letter per app (see [Share links](#share-links)). Each has a CSP `<meta>` with the hashes of its inline script and style |
 | `/.well-known/assetlinks.json` | Lets Android open those links straight in the app (App Links): one entry per app that shares links |
 | `/stadium/events.json` | Feed of the "¿Hay jaleo? Metropolitano" app: upcoming events at the Riyadh Air Metropolitano, rebuilt daily by the **Stadium events** workflow (`scripts/stadium_events.py`) from the stadium's agenda, Atlético de Madrid's fixtures and `scripts/stadium_overrides.json`. Don't edit it by hand |
 | `assets/` | Shared stylesheet, favicons, app icons and `og-card.png` (the 1200×630 share preview of both homes) |
-| `robots.txt` · `sitemap.xml` | The homes and privacy pages are listed for search engines; the share-link pages carry `noindex` instead (blocking them in robots.txt would also hide their link previews) |
+| `robots.txt` · `sitemap.xml` | The homes and privacy pages are listed for search engines; the share-link pages carry `noindex` instead (blocking them in robots.txt would also hide their link previews). Each URL's `<lastmod>` is the date its content last changed: a policy's "last updated" date, or the day a home's text changed |
+
+## Content Security Policy
+
+The homes and the share-link pages carry a CSP `<meta>` that allows only the page's own inline
+script (and, on the share-link pages, its inline style) by SHA-256 hash. After editing either, run
+`python3 scripts/check_csp.py --fix`; the **Site checks** workflow fails on a stale hash. The policy
+governs only what the page loads and runs: the share-link pages' `intent://` and Google Play links
+are navigations, which it leaves alone.
 
 ## Share links
 
@@ -33,7 +41,8 @@ of both `index.html` and `en/index.html`.
 Keep `/privacy/<app>/` URLs stable: published Google Play listings and the apps link to them.
 
 When adding an app: add its card to the Apps or Games tab (and its count) in both `index.html` and
-`en/index.html`, its icon to `assets/apps/`, and its policy under `privacy/<app>/`.
+`en/index.html`, its icon to `assets/apps/`, its policy under `privacy/<app>/` (with its `canonical` link), and that
+policy's URL to `sitemap.xml`.
 
 When neither official page gives a time or competition (a national-team match, say), add it to
 `scripts/stadium_overrides.json` by event id; an official value always wins, and an id that has gone
