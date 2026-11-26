@@ -6,19 +6,6 @@
  ],
  "events": [
   {
-   "id": "atletico-vs-viking",
-   "title": "Atlético de Madrid vs Viking FK",
-   "kind": "match",
-   "level": "max",
-   "days": [
-    "2026-11-25"
-   ],
-   "either": false,
-   "time": "21:00",
-   "competition": "UEFA Champions League",
-   "url": "https://www.riyadhairmetropolitano.com/eventos/atletico-vs-viking"
-  },
-  {
    "id": "atletico-vs-betis",
    "title": "Atlético de Madrid vs Betis",
    "kind": "match",
